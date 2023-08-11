@@ -1,6 +1,6 @@
 # See: https://stackoverflow.com/questions/15910064/how-to-compile-a-linux-kernel-module-using-std-gnu99
 
-TARGET_MODULE := one
+TARGET_MODULE := scream
 
 # Permit a user-defined kernel version with the KVER variable (#6)
 KVER ?= $(shell uname -r)
@@ -109,7 +109,7 @@ local_unload:
 
 create:
 	# Not required since (#8 from Dreirund) as load is doing it
-	@$(call title, "Creating node device /dev/one")
+	@$(call title, "Creating node device /dev/scream")
 	mknod /dev/$(TARGET_MODULE) c $(shell cat /proc/devices | grep $(TARGET_MODULE)$ | cut -d ' ' -f1) 0
 	@echo
 
@@ -121,7 +121,7 @@ delete:
 
 test:
 	@$(call title, "Testing")
-	@if [ "$(shell xxd -p -l 10 /dev/one)" = "ffffffffffffffffffff" ]; then \
+	@if [ "$(shell xxd -p -l 10 /dev/scream)" = "ffffffffffffffffffff" ]; then \
 		echo "\e[32mSUCCESS\e[0m"; \
 		exit 0; \
 	else \

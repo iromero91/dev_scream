@@ -1,52 +1,31 @@
-# File Driver to create a device /dev/one like the /dev/zero
+# File Driver to create a device /dev/scream like the /dev/zero
 
 ### QuickStart
 
 When installed, running:
 ```bash
-cat /dev/one | hexdump -v
+cat /dev/scream | head -c 100
 ```
 
 Prints:
 ```text
-0000000 ffff ffff ffff ffff ffff ffff ffff ffff
+aHAAhhaHHAAHaAaAAAAhhHhhAAaAAAhAaaAAAaHHAHhAaaaaAaHahAaAHaAAHaaHhAHhHaHaAaHAAHaAhhaHaAaAA
 ```
-
-
 ### Install
 
-Download file and generate keys
+Download file
 
 ```bash
-git clone https://github.com/tinmarino/dev_one.git DevOne && cd DevOne  # 1/ Download
-sudo make key     # 2 Generate key for signing
-sudo reboot now   # 3 Reboot and enable Mok
-  # 1. A blue screen (MOK manager) will appear
-  # 2. Choose "Enroll MOK"
-  # 3. Choose "Continue"
-  # 4. Choose "Yes" (when asked "Enroll the key")
-  # 5. Enter the password you gave at make sign
-  # 6. Choose "Reboot" (again)
+git clone https://github.com/matlink/dev_scream && cd dev_scream
+make build
+sudo make install
+sudo make load
 ```
 
-Install module in system
-
+### Uninstall
 ```bash
-sudo make full
+sudo make clean
 ```
-
-In case you want a fast development life cycle, here is how to load module once
-
-```bash
-make build        # 4 Compile
-sudo make sign    # 5 Sign driver module to permit MOK enforcement (security)
-sudo make user_load    # 6 Load
-sudo make user_create  # 7 Create /dev/one
-make test         # 8 Test if all is ok
-```
-
-As usual, to clean your work, run `sudo make clean`
-
 
 ### Util
 
@@ -66,6 +45,7 @@ dmesg -wH  # Kernel log like tail -f
 
 ### Source
 
+*  Based on https://github.com/tinmarino/dev_one
 *  Device Driver: https://www.apriorit.com/dev-blog/195-simple-driver-for-linux-os
 *  Signing driver: https://gist.github.com/Garoe/74a0040f50ae7987885a0bebe5eda1aa
 *  Mok: https://ubuntu.com/blog/how-to-sign-things-for-secure-boot
